@@ -20,6 +20,9 @@ public class TaskService {
     public List<Task> findAll(){
         return taskRepository.findAll();
     }
+    public List<Task> findByDone(boolean isDone){
+        return taskRepository.findTasksByDone(isDone);
+    }
     public Task findById(int id){
         return taskRepository.findById(id).orElseThrow(TaskNotFoundException::new);
     }

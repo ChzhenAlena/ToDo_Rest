@@ -28,9 +28,14 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public List<TaskResponceDTO> showTasks(){
+    public List<TaskResponceDTO> showTasks(@RequestParam(value = "done", required = false, defaultValue = "undefined") String isDone){
+        if(isDone.equals("undefined"))
         return taskService.findAll().stream().
                 map(this::convertTaskToDto).collect(Collectors.toList());
+
+        else return taskService.findByDone(Boolean.parseBoolean(isDone)).stream().
+                map(this::convertTaskToDto).collect(Collectors.toList());
+
     }
 
     @GetMapping("/tasks/{id}")
